@@ -1,0 +1,41 @@
+import React, { Component } from "react";
+
+class AddItemForm extends Component {
+  state = {
+    value: ""
+  };
+
+  onAddItem = event => {
+    const { value } = this.state;
+    const { onAdd } = this.props;
+
+    event.preventDefault();
+    onAdd(value);
+  };
+
+  handleChange = event => {
+    this.setState({ value: event.target.value });
+  };
+
+  inputIsEmpty = () => {
+    return this.state.value === "";
+  };
+
+  render() {
+    const { value } = this.state;
+
+    return (
+      <form onSubmit={this.onAddItem}>
+        <input
+          type="text"
+          placeholder="Enter New Item"
+          value={value}
+          onChange={this.handleChange}
+        />
+        <button disabled={this.inputIsEmpty()}>Add</button>
+      </form>
+    );
+  }
+}
+
+export default AddItemForm;
