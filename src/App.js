@@ -1,21 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import ItemsList from "./ItemsList";
+import DeleteLastItemButton from "./DeleteLastItemButton";
+import AddItemForm from "./AddItemForm";
 
 class App extends React.Component {
   state = {
-    value: '',
-    items: [],
+    items: []
   };
 
-  handleChange = event => {
-    this.setState({ value: event.target.value });
-  };
-
-  addItem = event => {
-    event.preventDefault();
+  addItem = value => {
     this.setState(oldState => ({
-      items: [...oldState.items, this.state.value],
+      items: [...oldState.items, value]
     }));
   };
 
@@ -23,15 +20,13 @@ class App extends React.Component {
     this.setState(prevState => ({ items: this.state.items.slice(0, -1) }));
   };
 
-  inputIsEmpty = () => {
-    return this.state.value === '';
-  };
-
   noItemsFound = () => {
     return this.state.items.length === 0;
   };
 
   render() {
+    const { items } = this.state;
+
     return (
       <div className="App">
         <header className="App-header">
@@ -39,24 +34,15 @@ class App extends React.Component {
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
         <h2>Shopping List</h2>
-        <form onSubmit={this.addItem}>
-          <input
-            type="text"
-            placeholder="Enter New Item"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          <button disabled={this.inputIsEmpty()}>Add</button>
-        </form>
 
-        <button onClick={this.deleteLastItem} disabled={this.noItemsFound()}>
-          Delete Last Item
-        </button>
+        <AddItemForm onAdd={this.addItem} />
 
-        <p className="items">Items</p>
-        <ol className="item-list">
-          {this.state.items.map((item, index) => <li key={index}>{item}</li>)}
-        </ol>
+        <DeleteLastItemButton
+          onDeleteLastItem={this.deleteLastItem}
+          isDisabled={this.noItemsFound()}
+        />
+
+        <ItemsList items={items} />
       </div>
     );
   }
