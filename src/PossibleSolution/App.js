@@ -1,13 +1,13 @@
-import React from 'react';
-import logo from '../logo.svg';
-import '../App.css';
-import CreateNewItem from './CreateNewItem';
-import ItemList from './ItemList';
-import DeleteLastItem from './DeleteLastItem';
+import React from "react";
+import logo from "../logo.svg";
+import "../App.css";
+import CreateNewItem from "./CreateNewItem";
+import ItemList from "./ItemList";
+import DeleteLastItem from "./DeleteLastItem";
 
 class App extends React.Component {
   state = {
-    items: [],
+    items: []
   };
 
   handleAddItem = item => {
