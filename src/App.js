@@ -16,6 +16,7 @@ class App extends React.Component {
     }));
   };
 
+  //setState function style
   deleteLastItem = event => {
     this.setState(prevState => ({ items: this.state.items.slice(0, -1) }));
   };
